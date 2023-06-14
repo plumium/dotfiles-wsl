@@ -2,11 +2,13 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-# Declare Custom Path
-export PATH="$PATH:/mnt/c/Users/takuro/AppData/Local/Programs/Microsoft VS Code/bin/"
-export PATH="$PATH:~/.local/bin/"
+# aliases
+alias clip="/mnt/c/Windows/System32/clip.exe"
 
-export PS1="\[\e[0;36m\]\u@\h\[\e[m\]:\[\e[01;34m\]\w\[\e[m\]\\$ " 
+# export variables
+export PATH="$PATH:/mnt/c/Users/takurou.kawai/AppData/Local/Programs/Microsoft VS Code/bin"
+export PS1="\e[1;36m\u@\h\e[m:\e[1;34m\w\e[m\$ "
+export PROMPT_COMMAND='echo -en "\e[6 q"'
 
 # If not running interactively, don't do anything
 case $- in
