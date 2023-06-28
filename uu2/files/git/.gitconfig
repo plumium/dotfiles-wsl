@@ -1,0 +1,8 @@
+[alias]
+    st = status -s
+    co = checkout
+
+[core]
+    autocrlf = input
+[init]
+    defaultBranch = master
