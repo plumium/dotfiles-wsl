@@ -4,6 +4,7 @@
 
 [core]
     autocrlf = input
+	editor = /usr/bin/vim
 [init]
     defaultBranch = master
 [credential]
