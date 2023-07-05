@@ -28,6 +28,7 @@ nnoremap x "_x
 nnoremap X "_X
 nnoremap s "_s
 nnoremap S "_S
+nnoremap <silent> <F5> :source $MYVIMRC<CR>
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -38,6 +39,7 @@ endif
 call plug#begin()
 
 Plug 'tomasiser/vim-code-dark'
+Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 
 call plug#end()
