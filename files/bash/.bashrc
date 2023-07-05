@@ -6,6 +6,7 @@
 alias clip="/mnt/c/Windows/System32/clip.exe"
 
 # export variables
+export WINHOME="$(wslpath $(wslvar USERPROFILE))"
 export PATH="$PATH:/mnt/c/Users/takurou.kawai/AppData/Local/Programs/Microsoft VS Code/bin"
 export PS1="\e[1;36m\u@\h\e[m:\e[1;34m\w\e[m\$ "
 export PROMPT_COMMAND='echo -en "\e[6 q"'
