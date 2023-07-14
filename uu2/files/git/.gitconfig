@@ -1,11 +1,19 @@
 [alias]
     st = status -s
     co = checkout
+    bl = branch -avv
 
 [core]
     autocrlf = input
 	editor = /usr/bin/vim
+
 [init]
     defaultBranch = master
+
 [credential]
-	helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
+    helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
+
+[user]
+    name = u-u2
+    email = u-u2@outlook
+
