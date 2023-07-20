@@ -24,11 +24,6 @@ set expandtab
 set tabstop=4
 set shiftwidth=0
 
-nnoremap x "_x
-nnoremap X "_X
-nnoremap s "_s
-nnoremap S "_S
-
 nnoremap <silent> <F5> :source $MYVIMRC<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
