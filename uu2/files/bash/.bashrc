@@ -2,10 +2,15 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# functions
 get_current_git_branch(){
     if [ ! -z `la | grep '^\.git$'` ]; then
         echo "($(git branch | grep -Po '(?<=\*\s).*$'))"
     fi
+}
+
+mcd() {
+    mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
 # aliases
