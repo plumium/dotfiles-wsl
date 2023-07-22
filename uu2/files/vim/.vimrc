@@ -1,6 +1,23 @@
-let &t_EI = "\e[2 q"
-let &t_SI = "\e[6 q"
+" Setup vim-plug https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
+call plug#begin()
+Plug 'tomasiser/vim-code-dark'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'preservim/nerdtree'
+Plug 'obcat/vim-sclow', {'on': []}
+call plug#end()
+
+" Terminal Output Codes
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" Editor Options
 set encoding=utf-8
 
 set number
@@ -24,26 +41,18 @@ set expandtab
 set tabstop=4
 set shiftwidth=0
 
-nnoremap x "_x
-nnoremap X "_X
-nnoremap s "_s
-nnoremap S "_S
-nnoremap <silent> <F5> :source $MYVIMRC<CR>
-
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin()
-
-Plug 'tomasiser/vim-code-dark'
-Plug 'vim-airline/vim-airline'
-Plug 'tpope/vim-surround'
-
-call plug#end()
-
 colorscheme codedark
 syntax enable
+
+" Key Mappings
+nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>
+nnoremap <silent> <C-[><C-[> :noh<CR>
+nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
+nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
+
+cnoremap <C-a> <C-b>
+
+" Autocommands
+autocmd CmdlineEnter * call echoraw(&t_SI)
+autocmd CmdlineLeave * call echoraw(&t_EI)
 

@@ -2,10 +2,15 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# functions
 get_current_git_branch(){
     if [ ! -z `la | grep '^\.git$'` ]; then
         echo "($(git branch | grep -Po '(?<=\*\s).*$'))"
     fi
+}
+
+mcd() {
+    mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
 }
 
 # aliases
@@ -14,7 +19,7 @@ alias clip="/mnt/c/Windows/System32/clip.exe"
 # export variables
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
 export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
-export PS1="\e[1;36m\u@\h\e[m:\e[1;34m\w\e[m \e[91m\$(get_current_git_branch)\e[m\$ "
+export PS1="\[\e[1;36m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\] \[\e[91m\]\$(get_current_git_branch)\[\e[m\]$ "
 export PROMPT_COMMAND='echo -en "\e[6 q"'
 
 # If not running interactively, don't do anything
