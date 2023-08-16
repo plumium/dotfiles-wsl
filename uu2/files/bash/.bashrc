@@ -4,7 +4,7 @@
 
 # functions
 get_current_git_branch(){
-    if [ ! -z `la | grep '^\.git$'` ]; then
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         echo "($(git branch | grep -Po '(?<=\*\s).*$'))"
     fi
 }
