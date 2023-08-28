@@ -48,6 +48,9 @@ syntax enable
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
+nnoremap gb :bn<CR>
+nnoremap gB :bp<CR>
+nnoremap <leader>b :ls<CR>
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 
 cnoremap <C-a> <C-b>
@@ -55,4 +58,5 @@ cnoremap <C-a> <C-b>
 " Autocommands
 autocmd CmdlineEnter * call echoraw(&t_SI)
 autocmd CmdlineLeave * call echoraw(&t_EI)
+autocmd VimEnter * NERDTree
 
