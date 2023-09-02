@@ -25,7 +25,7 @@ set cursorline
 
 set showcmd
 set showmatch
-set scrolloff=5
+set scrolloff=0
 
 set ignorecase
 set smartcase
@@ -51,6 +51,8 @@ nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:s
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
 nnoremap <leader>b :ls<CR>
+nnoremap ]] ]m
+nnoremap [[ [m
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 
 cnoremap <C-a> <C-b>
