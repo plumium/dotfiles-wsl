@@ -19,11 +19,17 @@ alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
 # export variables
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
+export PS1="\[\e[1;36m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\] \[\e[91m\]\$(get_current_git_branch)\[\e[m\]$ "
+export PROMPT_COMMAND='echo -en "\e[6 q"'
 export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/maven/3.9.4/bin"
-export PS1="\[\e[1;36m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\] \[\e[91m\]\$(get_current_git_branch)\[\e[m\]$ "
-export PROMPT_COMMAND='echo -en "\e[6 q"'
+export PATH="$PATH:$HOME/.jenv/bin"
+
+if [ ! $(command -v jenv) &>/dev/null ]; then 
+    git clone https://github.com/jenv/jenv.git ~/.jenv
+fi
+eval "$(jenv init -)"
 
 # If not running interactively, don't do anything
 case $- in
