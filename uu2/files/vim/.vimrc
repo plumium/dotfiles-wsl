@@ -14,8 +14,8 @@ Plug 'obcat/vim-sclow', {'on': []}
 call plug#end()
 
 " Terminal Output Codes
-let &t_SI = "\e[6 q"
-let &t_EI = "\e[2 q"
+let &t_SI = "\e[3 q"
+let &t_EI = "\e[1 q"
 
 " Editor Options
 set encoding=utf-8
