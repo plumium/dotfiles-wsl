@@ -3,7 +3,7 @@
 readonly CURRENT_DIR=$PWD
 readonly BACKUP_DIR="$HOME/dotfiles-wsl-backup/"
 
-source "scripts/apt.sh"
+# source "scripts/apt.sh"
 
 if [ ! -d $BACKUP_DIR ]; then
     mkdir "$BACKUP_DIR"
@@ -37,8 +37,9 @@ for source in $(find virtualhome -type f | sort); do
             echo_indent "create backup directory: $destBackupDir"
             mkdir -p $destBackupDir
         fi
-        echo_indent "backup: $destFile -> $destBackupDir/$(basename $source)"
-        mv $destFile $destBackupDir
+        destBackupFile="$destBackupDir/$(basename $source)"
+        echo_indent "backup: $destFile -> $destBackupFile"
+        cp -L $destFile $destBackupFile
     fi
     fullSource="$PWD/$source"
     echo_indent "link: $destFile -> $fullSource"
