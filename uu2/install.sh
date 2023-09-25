@@ -1,33 +1,47 @@
 #!/bin/bash
 
 readonly CURRENT_DIR=$PWD
-readonly BACKUP_DIR="$HOME/dotfiles-wsl-backup"
+readonly BACKUP_DIR="$HOME/dotfiles-wsl-backup/"
 
-echo_indent(){
-    echo $1 | sed 's/^/  /'
-}
+source "scripts/apt.sh"
 
 if [ ! -d $BACKUP_DIR ]; then
     mkdir "$BACKUP_DIR"
     echo "create backup directory: $BACKUP_DIR"
 fi
 
-cd $(dirname $0)
-for f in `find files -type f | sort`; do
-    FILE_NAME=`basename $f`
-    echo "create symlink to $FILE_NAME"
-    # if exists old file
-    if [ ! -z `find "$HOME/$FILE_NAME" -maxdepth 1 -type f` ]; then
-        BACKUP_DEST="$BACKUP_DIR/$FILE_NAME"
-        echo_indent "$FILE_NAME exists in $HOME"
-        echo_indent "create backup to $BACKUP_DEST"
-        mv "$HOME/$FILE_NAME" $BACKUP_DEST 
+echo_indent() {
+    echo $1 | sed 's/^/  /'
+}
+
+has_parent_directory() {
+    [ $(dirname $1) != '.' ]
+}
+
+create_home_path() {
+    if has_parent_directory $1; then
+        echo "$HOME/$(dirname $1)/$(basename $1)"
+    else
+        echo "$HOME/$(basename $1)"
     fi
-    TARGET="$PWD/$f"
-    echo_indent "target: $TARGET"
-    echo_indent "directory: $HOME" 
-    ln -sf $TARGET $HOME
-    echo -e "\n"
+}
+
+cd $(dirname $0)
+for source in $(find virtualhome -type f | sort); do
+    echo "create symlink for $source"
+    relativeSource=$(echo $source | cut -d / -f 2-)
+    destFile=$(create_home_path $relativeSource)
+    if [ -f $fullpath ]; then
+        destBackupDir=$(dirname "$BACKUP_DIR/$relativeSource")
+        if has_parent_directory $relativeSource && [ ! -d $destBackupDir ]; then
+            echo_indent "create backup directory: $destBackupDir"
+        fi
+        echo_indent "backup: $destFile -> $destBackupDir/$(basename $source)"
+    fi
+    fullSource="$PWD/$source"
+    echo_indent "link: $destFile -> $fullSource"
+    ln -sf $fullSource $destFile
+    echo -e '\n'
 done
 
 echo 'done'
