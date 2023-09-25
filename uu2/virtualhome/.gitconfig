@@ -1,5 +1,6 @@
 [alias]
     bra = branch -avv
+    cm = commit
     co = checkout
     cp = cherry-pick
     log5 = log -n 5 --oneline
