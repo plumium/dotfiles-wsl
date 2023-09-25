@@ -35,8 +35,10 @@ for source in $(find virtualhome -type f | sort); do
         destBackupDir=$(dirname "$BACKUP_DIR/$relativeSource")
         if has_parent_directory $relativeSource && [ ! -d $destBackupDir ]; then
             echo_indent "create backup directory: $destBackupDir"
+            mkdir -p $destBackupDir
         fi
         echo_indent "backup: $destFile -> $destBackupDir/$(basename $source)"
+        mv $destFile $destBackupDir
     fi
     fullSource="$PWD/$source"
     echo_indent "link: $destFile -> $fullSource"
