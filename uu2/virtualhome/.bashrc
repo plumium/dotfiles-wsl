@@ -5,12 +5,24 @@
 # functions
 get_current_git_branch(){
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-        echo "($(git branch | grep -Po '(?<=\*\s).*$'))"
+        echo "$(git branch | grep -Po '(?<=\*\s).*$')"
     fi
 }
 
 mcd() {
     mkdir "$@" 2> >(sed s/mkdir/mcd/ 1>&2) && cd "$_"
+}
+
+cyan(){
+    echo -e "\[\e[1;36m\]$1\[\e[m\]"
+}
+
+blue(){
+    echo -e "\[\e[1;34m\]$1\[\e[m\]"
+}
+
+red(){
+    echo "$1"
 }
 
 # aliases
@@ -20,7 +32,7 @@ alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
 # export variables
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
-export PS1="\[\e[1;36m\]\u@\h\[\e[m\]:\[\e[1;34m\]\w\[\e[m\] \[\e[91m\]\$(get_current_git_branch)\[\e[m\]$ "
+export PS1="$(cyan \\u@\\h):$(blue \\w) \[\e[91m\]\$(get_current_git_branch)\[\e[m\]$ "
 export PROMPT_COMMAND='echo -en "\e[3 q"'
 export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
 export PATH="$PATH:/usr/local/go/bin"
