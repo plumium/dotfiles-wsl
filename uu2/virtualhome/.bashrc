@@ -31,6 +31,8 @@ alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
 # export variables
+export GIT_PS1_SHOWDIRTYSTATE=1
+
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
 export PS1="$(cyan \\u@\\h):$(blue \\w)\[\e[91m\]\$(__git_ps1)\[\e[m\]$ "
 export PROMPT_COMMAND='echo -en "\e[3 q"'
