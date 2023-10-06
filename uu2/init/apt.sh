@@ -6,5 +6,6 @@ sudo apt update &&
         pgcli \
         graphviz \
         build-essential \
+        libssl-dev \
         autoconf \
         libncurses5-dev
