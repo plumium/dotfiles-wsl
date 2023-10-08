@@ -7,5 +7,7 @@ sudo apt update &&
         graphviz \
         build-essential \
         libssl-dev \
+        automake \
         autoconf \
-        libncurses5-dev
+        libncurses5-dev \
+        unzip
