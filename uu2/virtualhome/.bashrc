@@ -25,6 +25,10 @@ red(){
     echo "$1"
 }
 
+genpwd(){
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 16
+}
+
 # aliases
 alias clip="/mnt/c/Windows/System32/clip.exe"
 alias explorer="/mnt/c/Windows/explorer.exe"
