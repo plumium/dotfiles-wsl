@@ -30,7 +30,7 @@ genpwd(){
 }
 
 # aliases
-alias clip="/mnt/c/Windows/System32/clip.exe"
+alias PATH="$PATH:/mnt/c/Windows/System32/clip.exe"
 alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
@@ -47,6 +47,7 @@ export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/maven/3.9.4/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 if [ ! $(command -v jenv) &>/dev/null ]; then 
     git clone https://github.com/jenv/jenv.git ~/.jenv
@@ -167,4 +168,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-complete -C /home/takuro/go/bin/gocomplete go
+complete -C ~/go/bin/gocomplete go

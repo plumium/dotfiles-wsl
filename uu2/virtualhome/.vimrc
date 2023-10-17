@@ -41,8 +41,6 @@ set expandtab
 set tabstop=4
 set shiftwidth=0
 
-set dir=~/tmp
-
 colorscheme codedark
 syntax enable
 
