@@ -2,9 +2,9 @@
 
 readonly CURRENT_DIR=$PWD
 
-function run(){
+function run() {
     echo "Start: $1"
-    source $1
+    . $1
     echo "End: $1"
 }
 

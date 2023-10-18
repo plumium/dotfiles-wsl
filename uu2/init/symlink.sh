@@ -1,49 +1,46 @@
-#!/bin/bash
-
-readonly BACKUP_DIR="$HOME/dotfiles-wsl-backup/"
-
-if [ ! -d $BACKUP_DIR ]; then
-    mkdir "$BACKUP_DIR"
-    echo "create backup directory: $BACKUP_DIR"
-fi
-
-echo_indent() {
-    echo $1 | sed 's/^/  /'
+escape_slash() {
+    echo $1 | sed 's/\//\\\//g'
 }
 
-has_parent_directory() {
-    [ $(dirname $1) != '.' ]
+replace_path() {
+    echo $1 | sed "s/$(escape_slash $2)//"
 }
 
-create_home_path() {
-    if has_parent_directory $1; then
-        echo "$HOME/$(dirname $1)/$(basename $1)"
-    else
-        echo "$HOME/$(basename $1)"
+backup_home_file() {
+    if [ ! -f "$1" ]; then
+        echo "$1 does not found"
+        return 1
     fi
+    local truncated_home_path=$(replace_path $1 $HOME/)
+    local dest_file="$2/$truncated_home_path"
+    local dest_dir=$(dirname $dest_file)
+    if [ ! -d "$dest_dir" ]; then
+        echo "create backup directory: $dest_dir"
+        mkdir -p $dest_dir
+    fi
+    mv $1 $dest_file
+    echo "backup: $1 -> $dest_file"
 }
 
-is_linked(){
-    [ -L $1 ] && [ $(readlink $1) == $(realpath $2) ]
-}
-
-for f in $(find virtualhome -type f | sort); do
-    relativePath=$(echo $f | cut -d / -f 2-)
-    dest=$(create_home_path $relativePath)
-    if ! $(is_linked $dest $f); then
-        if [ -f $dest ]; then
-            destBackupDir=$(dirname "$BACKUP_DIR/$relativePath")
-            if has_parent_directory $relativePath && [ ! -d $destBackupDir ]; then
-                echo_indent "create backup directory: $destBackupDir"
-                mkdir -p $destBackupDir
-            fi
-            destBackupFile="$destBackupDir/$(basename $f)"
-            echo_indent "backup: $dest -> $destBackupFile"
-            cp -L $dest $destBackupFile
+link_virtual_home() {
+    local virtual_home_full_path="$PWD/virtualhome"
+    if [ ! -d "$virtual_home_full_path" ]; then
+        echo "virtualhome does not found in $PWD"
+        return 1
+    fi
+    for f in $(find $virtual_home_full_path -type f -exec readlink -f {} + | sort); do
+        local link_file="$(replace_path $f $virtual_home_full_path/)"
+        local home_link_file="$HOME/$link_file"
+        local home_link_dir="$(dirname $home_link_file)"
+        if [ -f $home_link_file ] && [ "$(readlink $home_link_file)" != "$f" ]; then
+            backup_home_file $home_link_file "$HOME/dotfiles-wsl-backup"
         fi
-        fullSource="$PWD/$f"
-        echo_indent "link: $dest -> $fullSource"
-        ln -sf $fullSource $dest
-        echo ''
-    fi
-done
+        if [ ! -d "$home_link_dir" ]; then
+            mkdir -p "$home_link_dir"
+        fi
+        ln -sf $f $home_link_file
+        echo "$home_link_file -> $f"
+    done
+}
+
+link_virtual_home
