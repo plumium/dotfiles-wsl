@@ -30,7 +30,7 @@ genpwd(){
 }
 
 # aliases
-alias PATH="$PATH:/mnt/c/Windows/System32/clip.exe"
+alias clip="/mnt/c/Windows/System32/clip.exe"
 alias explorer="/mnt/c/Windows/explorer.exe"
 alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
