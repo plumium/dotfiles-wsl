@@ -10,4 +10,5 @@ sudo apt update &&
         automake \
         autoconf \
         libncurses5-dev \
-        unzip
+        unzip \
+        cloc
