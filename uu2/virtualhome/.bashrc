@@ -39,10 +39,11 @@ alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 
 # export variables
 export GIT_PS1_SHOWDIRTYSTATE=1
+export PS1="$(cyan \\u@\\h):$(blue \\w)\[\e[91m\]\$(__git_ps1)\[\e[m\]$\n"
+export PROMPT_COMMAND='echo -en "\e[3 q""\n"'
+#export PROMPT_COMMAND='echo -en "\e[3 q"'
 
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
-export PS1="$(cyan \\u@\\h):$(blue \\w)\[\e[91m\]\$(__git_ps1)\[\e[m\]$ "
-export PROMPT_COMMAND='echo -en "\e[3 q"'
 export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/maven/3.9.4/bin"
