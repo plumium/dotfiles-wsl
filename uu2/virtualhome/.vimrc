@@ -21,7 +21,6 @@ let &t_EI = "\e[1 q"
 set encoding=utf-8
 
 set number
-set cursorline
 
 set showcmd
 set showmatch
