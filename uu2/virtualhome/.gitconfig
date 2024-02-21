@@ -20,8 +20,8 @@
     helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
 
 [user]
-    name = u-u2
-    email = u-u2@outlook.jp
+	name = plumium
+	email = plumium@outlook.com
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
