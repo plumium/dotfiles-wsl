@@ -6,7 +6,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'tomasiser/vim-code-dark'
+Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
@@ -41,8 +41,10 @@ set expandtab
 set tabstop=4
 set shiftwidth=0
 
-colorscheme codedark
-syntax enable
+syntax on
+set background=dark
+colorscheme iceberg
+hi Normal ctermbg=NONE
 
 " Key Mappings
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>
