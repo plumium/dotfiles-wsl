@@ -9,9 +9,9 @@ function run() {
 }
 
 cd $(dirname $0)
-run 'init/apt.sh'
-run 'init/clone.sh'
-run 'init/asdf.sh'
-run 'init/symlink.sh'
+run 'scripts/apt.sh'
+run 'scripts/clone.sh'
+run 'scripts/asdf.sh'
+run 'scripts/symlink.sh'
 
 cd $CURRENT_DIR
