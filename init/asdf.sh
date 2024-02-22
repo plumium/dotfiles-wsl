@@ -8,4 +8,3 @@ function add(){
 
 add erlang \
     elixir \
-    java
