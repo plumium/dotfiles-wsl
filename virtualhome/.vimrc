@@ -13,29 +13,24 @@ Plug 'obcat/vim-sclow'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
-" Terminal Output Codes
 let &t_SI = "\e[3 q"
 let &t_EI = "\e[1 q"
+autocmd! CmdlineEnter * call echoraw(&t_SI)
+autocmd! CmdlineLeave * call echoraw(&t_EI)
+let g:airline_section_b = '%{strftime("%c")}'
 
-" Editor Options
 set encoding=utf-8
-
 set number
-
 set showcmd
 set showmatch
 set scrolloff=0
-
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-
 set splitbelow
-
 set wildmenu
 set wildmode=longest,list,full
-
 set expandtab
 set tabstop=2
 set shiftwidth=0
@@ -48,7 +43,6 @@ autocmd! ColorScheme iceberg
 colorscheme iceberg
 set background=dark
 
-" Key Mappings
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:noh<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
@@ -58,10 +52,5 @@ nnoremap <leader>b :ls<CR>
 nnoremap ]] ]m
 nnoremap [[ [m
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
-
 cnoremap <C-a> <C-b>
-
-" Autocommands
-autocmd CmdlineEnter * call echoraw(&t_SI)
-autocmd CmdlineLeave * call echoraw(&t_EI)
 
