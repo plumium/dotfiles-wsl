@@ -9,8 +9,8 @@ call plug#begin()
 Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
-Plug 'preservim/nerdtree'
-Plug 'obcat/vim-sclow', {'on': []}
+Plug 'obcat/vim-sclow'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " Terminal Output Codes
