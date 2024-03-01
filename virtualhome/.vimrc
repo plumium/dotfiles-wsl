@@ -49,7 +49,7 @@ colorscheme iceberg
 set background=dark
 
 " Key Mappings
-nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>
+nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:noh<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
 nnoremap gb :bn<CR>
