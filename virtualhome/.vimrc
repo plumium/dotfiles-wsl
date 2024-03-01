@@ -41,9 +41,12 @@ set tabstop=2
 set shiftwidth=0
 
 syntax on
-set background=dark
+autocmd! ColorScheme iceberg
+      \ hi Normal ctermbg=NONE |
+      \ hi LineNr ctermfg=140 ctermbg=NONE |
+      \ hi SclowsBar ctermbg=140
 colorscheme iceberg
-hi Normal ctermbg=NONE
+set background=dark
 
 " Key Mappings
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>
