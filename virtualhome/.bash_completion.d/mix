@@ -1,12 +1,12 @@
 declare -A _mix_cache
 
 __mix_list_task_names() {
-    mix help --names |
+    mix help --names 2>/dev/null |
         sort --unique
 }
 
 __mix_list_task_options() {
-    mix help $1 |
+    mix help $1 2>/dev/null |
         grep -oP -- '(?<=`)--.*?(?=`)' |
         sort --unique
 }
