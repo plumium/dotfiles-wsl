@@ -46,28 +46,27 @@ autocmd! ColorScheme iceberg
 colorscheme iceberg
 set background=dark
 
-if empty(globpath(&rtp, 'autoload/lsp.vim'))
-  finish
+if !empty(globpath(&rtp, 'autoload/lsp.vim'))
+  function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    nmap gd <plug>(lsp-definition)
+    nmap <f2> <plug>(lsp-rename)
+    nmap = <plug>(lsp-document-format)
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+  endfunction
+  augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+  augroup END
+  command! LspDebug
+        \ let lsp_log_verbose=1 |
+        \ let lsp_log_file = expand('~/lsp.log')
+  let g:lsp_diagnostics_enabled = 1
+  let g:lsp_diagnostics_echo_cursor = 1
 endif
-function! s:on_lsp_buffer_enabled() abort
-  setlocal omnifunc=lsp#complete
-  setlocal signcolumn=yes
-  nmap gd <plug>(lsp-definition)
-  nmap <f2> <plug>(lsp-rename)
-  nmap = <plug>(lsp-document-format)
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
-endfunction
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
-command! LspDebug
-      \ let lsp_log_verbose=1 |
-      \ let lsp_log_file = expand('~/lsp.log')
-let g:lsp_diagnostics_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
 
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:noh<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
