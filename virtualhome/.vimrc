@@ -10,7 +10,10 @@ Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'obcat/vim-sclow'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 call plug#end()
 
 let &t_SI = "\e[3 q"
@@ -42,6 +45,29 @@ autocmd! ColorScheme iceberg
       \ hi SclowsBar ctermbg=140
 colorscheme iceberg
 set background=dark
+
+if empty(globpath(&rtp, 'autoload/lsp.vim'))
+  finish
+endif
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  nmap gd <plug>(lsp-definition)
+  nmap <f2> <plug>(lsp-rename)
+  nmap = <plug>(lsp-document-format)
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+endfunction
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+command! LspDebug
+      \ let lsp_log_verbose=1 |
+      \ let lsp_log_file = expand('~/lsp.log')
+let g:lsp_diagnostics_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
 
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:noh<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
