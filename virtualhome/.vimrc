@@ -50,8 +50,20 @@ autocmd! ColorScheme iceberg
 colorscheme iceberg
 set background=dark
 
+autocmd! BufReadPre *.go
+      \ let g:vsnip_snippet_dir = g:plug_home . '/vscode-go/extension/snippets' |
+      \ let g:go_highlight_functions = 1 |
+      \ let g:go_highlight_function_calls = 1 |
+      \ let g:go_highlight_types = 1 |
+      \ let g:go_highlight_operators = 1 |
 autocmd! FileType go 
-      \ let g:vsnip_snippet_dir = g:plug_home . '/vscode-go/extension/snippets'
+      \ hi goFunction ctermfg=214 ctermbg=NONE |
+      \ hi goFunctionCall ctermfg=110 ctermbg=NONE |
+      \ hi goTypeName ctermfg=140 ctermbg=NONE |
+      \ hi goTypeConstructor ctermfg=140 ctermbg=NONE |
+      \ hi goOperator ctermfg=110 ctermbg=NONE |
+      \ syntax match Bracket /\[\|\]/ |
+      \ hi Bracket ctermfg=185
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   function! s:on_lsp_buffer_enabled() abort
