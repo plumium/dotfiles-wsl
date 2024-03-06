@@ -88,6 +88,12 @@ nnoremap [[ [m
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
 
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
