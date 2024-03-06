@@ -50,9 +50,12 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
-    nmap gd <plug>(lsp-definition)
-    nmap <f2> <plug>(lsp-rename)
-    nmap = <plug>(lsp-document-format)
+    nmap <buffer> <F2> <plug>(lsp-rename)
+    nmap <buffer> = <plug>(lsp-document-format)
+    nmap <buffer> gd <plug>(lsp-peek-definition)
+    nmap <buffer> gh <plug>(lsp-hover)
+    nmap <buffer> <C-I> <plug>(lsp-implementation)
+    nmap <buffer> <C-K> <plug>(lsp-code-action)
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
