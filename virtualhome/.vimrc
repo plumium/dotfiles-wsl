@@ -58,7 +58,7 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     nmap <buffer> <C-K> <plug>(lsp-code-action)
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
   endfunction
   augroup lsp_install
     au!
