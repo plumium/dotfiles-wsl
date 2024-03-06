@@ -35,6 +35,7 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+set splitright
 set splitbelow
 set wildmenu
 set wildmode=longest,list,full
