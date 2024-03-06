@@ -14,6 +14,9 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'golang/vscode-go'
 call plug#end()
 
 let &t_SI = "\e[3 q"
@@ -45,6 +48,9 @@ autocmd! ColorScheme iceberg
       \ hi SclowsBar ctermbg=140
 colorscheme iceberg
 set background=dark
+
+autocmd! FileType go 
+      \ let g:vsnip_snippet_dir = g:plug_home . '/vscode-go/extension/snippets'
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   function! s:on_lsp_buffer_enabled() abort
@@ -81,4 +87,13 @@ nnoremap ]] ]m
 nnoremap [[ [m
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
+
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
