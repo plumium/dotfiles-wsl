@@ -16,7 +16,6 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'golang/vscode-go'
 call plug#end()
 
 let &t_SI = "\e[3 q"
@@ -51,7 +50,7 @@ colorscheme iceberg
 set background=dark
 
 autocmd! BufReadPre *.go
-      \ let g:vsnip_snippet_dir = g:plug_home . '/vscode-go/extension/snippets' |
+      \ let g:vsnip_snippet_dir = '$HOME/.vim/snippets' |
       \ let g:go_highlight_functions = 1 |
       \ let g:go_highlight_function_calls = 1 |
       \ let g:go_highlight_types = 1 |
