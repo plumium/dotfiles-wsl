@@ -91,14 +91,9 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   let g:lsp_diagnostics_echo_cursor = 1
 endif
 
-nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:e %<CR>:noh<CR>
+nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:e %<CR>:let @/ = ''<CR>
 nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
-nnoremap gb :bn<CR>
-nnoremap gB :bp<CR>
-nnoremap <leader>b :ls<CR>
-nnoremap ]] ]m
-nnoremap [[ [m
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
 
