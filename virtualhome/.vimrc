@@ -16,6 +16,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'mattn/vim-sonictemplate'
 call plug#end()
 
 let &t_SI = "\e[3 q"
@@ -51,6 +52,7 @@ set background=dark
 
 autocmd! BufReadPre *.go
       \ let g:vsnip_snippet_dir = '$HOME/.vim/snippets' |
+      \ let g:sonictemplate_vim_template_dir = '$HOME/.vim/sonictemplate' |
       \ let g:go_highlight_functions = 1 |
       \ let g:go_highlight_function_calls = 1 |
       \ let g:go_highlight_types = 1 |
