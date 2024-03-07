@@ -9,7 +9,6 @@ call plug#begin()
 Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
-Plug 'obcat/vim-sclow'
 Plug 'guns/xterm-color-table.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
