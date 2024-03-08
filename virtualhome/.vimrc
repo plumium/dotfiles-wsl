@@ -17,6 +17,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'mattn/vim-sonictemplate'
+Plug 'sebdah/vim-delve'
 call plug#end()
 
 let &t_SI = "\e[3 q"

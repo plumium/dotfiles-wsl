@@ -50,6 +50,7 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/maven/3.9.4/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 if [ ! $(command -v jenv) &>/dev/null ]; then 
     git clone https://github.com/jenv/jenv.git ~/.jenv
