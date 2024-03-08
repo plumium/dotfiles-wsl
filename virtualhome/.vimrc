@@ -74,12 +74,16 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     nmap <buffer> <F2> <plug>(lsp-rename)
     nmap <buffer> = <plug>(lsp-document-format)
     nmap <buffer> gd <plug>(lsp-peek-definition)
+    nmap <buffer> gD <plug>(lsp-definition)
     nmap <buffer> gh <plug>(lsp-hover)
-    nmap <buffer> <C-I> <plug>(lsp-implementation)
-    nmap <buffer> <C-K> <plug>(lsp-code-action)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gk <plug>(lsp-code-action)
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    autocmd! BufWritePre <buffer>
+          \ call execute('LspCodeActionSync source.organizeImports') |
+          \ LspDocumentFormatSync
   endfunction
   augroup lsp_install
     au!
