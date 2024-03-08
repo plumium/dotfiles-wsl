@@ -1,3 +1,11 @@
+\(\S\+\)\.open$
+	file, err := os.Open({{$1}})
+		if err != nil {
+			log.Fatal(err)
+		}
+	defer file.Close()
+	{{_cursor_}}
+
 \(\S\+\)\.var$
 	var {{$1}} = {{_cursor_}}
 
