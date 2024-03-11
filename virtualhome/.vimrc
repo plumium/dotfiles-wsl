@@ -177,6 +177,7 @@ nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
+nnoremap <silent> <F3> :Lexplore<CR>
 
 inoremap ( ()<Left>
 inoremap [ []<Left>
