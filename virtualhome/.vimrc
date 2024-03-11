@@ -42,6 +42,76 @@ set wildmode=longest,list,full
 set expandtab
 set tabstop=2
 set shiftwidth=0
+set termwinsize=20x0
+
+" Set the default listing style to tree.
+let g:netrw_liststyle = 3
+
+" Make vertical splitting the default for previewing files.
+" Split the preview window into the right side.
+let g:netrw_preview = 1
+let g:netrw_alto = 0
+
+" When a vertical preview window is opened, the directory listing
+" will use only 20% of the columns available; the rest of the window
+" is used for the preview window.
+let g:netrw_winsize = 20
+
+command! BufOnly .+,$bdelete
+
+function! GetPopupId(n)
+  let pops = popup_list()
+  if len(pops) == 0
+    return -1
+  endif
+  return pops[a:n]
+endfunction
+
+function! PopupScroll(id,n)
+  let pos = popup_getpos(a:id)
+  let firstline = pos.firstline + a:n
+  if firstline < 1
+    let firstline = 1
+  elseif firstline > pos.lastline
+    let firstline = pos.lastline
+  endif
+  call popup_setoptions(a:id, {'firstline': firstline})
+endfunction
+
+function! PopupFilterScroll(id, key)
+  if a:key == "j"
+    call PopupScroll(a:id,1)
+    return 1
+  endif
+  if a:key == "\<C-D>"
+    call PopupScroll(a:id,10)
+    return 1
+  endif
+  if a:key == "k"
+    call PopupScroll(a:id,-1)
+    return 1
+  endif
+  if a:key == "\<C-U>"
+    call PopupScroll(a:id,-10)
+    return 1
+  endif
+  if a:key =="x"
+    call popup_close(a:id)
+    return 1
+  endif
+  return 0
+endfunction
+
+func! AttachPopupScroller(id) abort
+  " Want to handle the time when a popup window is opened.
+  " There is a possibility that the first element might be not
+  " opened popup window.
+  let winid = GetPopupId(0)
+  if winid > 0
+    call timer_stop(a:id)
+    call popup_setoptions(winid, #{filter: 'PopupFilterScroll'})
+  endif
+endfunc
 
 syntax on
 autocmd! ColorScheme iceberg
@@ -76,7 +146,10 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     setlocal signcolumn=yes
     nmap <buffer> <F2> <plug>(lsp-rename)
     nmap <buffer> = <plug>(lsp-document-format)
+    " lsp_float_opend and lsp#document_hover_preview_winid
+    " did not work as expected with lsp-peek-definition.
     nmap <buffer> gd <plug>(lsp-peek-definition)
+          \ :call timer_start(100, 'AttachPopupScroller', {})<CR>
     nmap <buffer> gD <plug>(lsp-definition)
     nmap <buffer> gh <plug>(lsp-hover)
     nmap <buffer> gi <plug>(lsp-implementation)
