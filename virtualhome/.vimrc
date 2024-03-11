@@ -58,14 +58,17 @@ autocmd! BufReadPre *.go
       \ let g:go_highlight_function_calls = 1 |
       \ let g:go_highlight_types = 1 |
       \ let g:go_highlight_operators = 1 |
-autocmd! FileType go 
-      \ hi goFunction ctermfg=214 ctermbg=NONE |
-      \ hi goFunctionCall ctermfg=110 ctermbg=NONE |
-      \ hi goTypeName ctermfg=140 ctermbg=NONE |
-      \ hi goTypeConstructor ctermfg=140 ctermbg=NONE |
-      \ hi goOperator ctermfg=110 ctermbg=NONE |
-      \ syntax match Bracket /\[\|\]/ |
-      \ hi Bracket ctermfg=185
+
+func! s:on_go_loaded() abort
+  hi goFunction ctermfg=214 ctermbg=NONE
+  hi goFunctionCall ctermfg=110 ctermbg=NONE
+  hi goTypeName ctermfg=140 ctermbg=NONE
+  hi goTypeConstructor ctermfg=140 ctermbg=NONE
+  hi goOperator ctermfg=110 ctermbg=NONE
+  syntax match Bracket /\[\|\]/
+  hi Bracket ctermfg=185
+endfunc
+autocmd! FileType go call s:on_go_loaded()
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   function! s:on_lsp_buffer_enabled() abort
