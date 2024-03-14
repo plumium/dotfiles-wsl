@@ -9,6 +9,7 @@ call plug#begin()
 Plug 'cocopon/iceberg.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'guns/xterm-color-table.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
@@ -121,6 +122,9 @@ autocmd! ColorScheme iceberg
 colorscheme iceberg
 set background=dark
 
+" Meta and special keys listed with ':map'
+hi! link SpecialKey Special
+
 autocmd! BufReadPre *.go
       \ let g:vsnip_snippet_dir = '$HOME/.vim/snippets' |
       \ let g:sonictemplate_vim_template_dir = '$HOME/.vim/sonictemplate' |
@@ -154,9 +158,7 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     nmap <buffer> gh <plug>(lsp-hover)
     nmap <buffer> gi <plug>(lsp-implementation)
     nmap <buffer> gk <plug>(lsp-code-action)
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    inoremap <expr> <CR>    pumvisible() ? asyncomplete#close_popup() : "\<CR>"
     autocmd! BufWritePre <buffer>
           \ call execute('LspCodeActionSync source.organizeImports') |
           \ LspDocumentFormatSync
@@ -185,10 +187,6 @@ inoremap { {}<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
 
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
