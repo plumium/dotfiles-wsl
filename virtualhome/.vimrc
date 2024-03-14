@@ -127,7 +127,6 @@ hi! link SpecialKey Special
 
 autocmd! BufReadPre *.go
       \ let g:vsnip_snippet_dir = '$HOME/.vim/snippets' |
-      \ let g:sonictemplate_vim_template_dir = '$HOME/.vim/sonictemplate' |
       \ let g:go_highlight_functions = 1 |
       \ let g:go_highlight_function_calls = 1 |
       \ let g:go_highlight_types = 1 |
@@ -187,6 +186,7 @@ inoremap { {}<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
 
+let g:sonictemplate_vim_template_dir = '$HOME/.vim/sonictemplate'
 let s:postfix_cache = {}
 fun! s:get_postfix_pattern_path(filetype)
   return expand(join([
