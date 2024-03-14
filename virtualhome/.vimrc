@@ -60,15 +60,15 @@ let g:netrw_winsize = 20
 
 command! BufOnly .+,$bdelete
 
-function! GetPopupId(n)
+fun! GetPopupId(n)
   let pops = popup_list()
   if len(pops) == 0
     return -1
   endif
   return pops[a:n]
-endfunction
+endfun
 
-function! PopupScroll(id,n)
+fun! PopupScroll(id,n)
   let pos = popup_getpos(a:id)
   let firstline = pos.firstline + a:n
   if firstline < 1
@@ -77,9 +77,9 @@ function! PopupScroll(id,n)
     let firstline = pos.lastline
   endif
   call popup_setoptions(a:id, {'firstline': firstline})
-endfunction
+endfun
 
-function! PopupFilterScroll(id, key)
+fun! PopupFilterScroll(id, key)
   if a:key == "j"
     call PopupScroll(a:id,1)
     return 1
@@ -101,9 +101,9 @@ function! PopupFilterScroll(id, key)
     return 1
   endif
   return 0
-endfunction
+endfun
 
-func! AttachPopupScroller(id) abort
+fun! AttachPopupScroller(id) abort
   " Want to handle the time when a popup window is opened.
   " There is a possibility that the first element might be not
   " opened popup window.
@@ -112,7 +112,7 @@ func! AttachPopupScroller(id) abort
     call timer_stop(a:id)
     call popup_setoptions(winid, #{filter: 'PopupFilterScroll'})
   endif
-endfunc
+endfun
 
 syntax on
 autocmd! ColorScheme iceberg
@@ -133,7 +133,7 @@ autocmd! BufReadPre *.go
       \ let g:go_highlight_types = 1 |
       \ let g:go_highlight_operators = 1 |
 
-func! s:on_go_loaded() abort
+fun! s:on_go_loaded() abort
   hi goFunction ctermfg=214 ctermbg=NONE
   hi goFunctionCall ctermfg=110 ctermbg=NONE
   hi goTypeName ctermfg=140 ctermbg=NONE
@@ -141,7 +141,7 @@ func! s:on_go_loaded() abort
   hi goOperator ctermfg=110 ctermbg=NONE
   syntax match Bracket /\[\|\]/
   hi Bracket ctermfg=185
-endfunc
+endfun
 autocmd! FileType go call s:on_go_loaded()
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
@@ -250,10 +250,10 @@ smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
-function! PrintSyntaxGroup()
+fun! PrintSyntaxGroup()
   let l:s = synID(line('.'), col('.'), 1)
   echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-endfunction
+endfun
 
 command! -nargs=? PostfixOpenVsplit call s:open_postfix('vsplit', <q-args>)
 fun! s:open_command(cmd, args)
