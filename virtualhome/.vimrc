@@ -187,8 +187,66 @@ inoremap { {}<Left>
 inoremap " ""<Left>
 inoremap ' ''<Left>
 
+let s:postfix_cache = {}
+fun! s:get_postfix_pattern_path(filetype)
+  return expand(join([
+        \ g:sonictemplate_vim_template_dir,
+        \ a:filetype,
+        \ 'pattern.stpl'], '/'))
+endfun
+
+fun! s:get_postfix(filetype) abort
+  if has_key(s:postfix_cache, a:filetype)
+    return s:postfix_cache[a:filetype]
+  endif
+  let l:stpl = s:get_postfix_pattern_path(a:filetype)
+  if !filereadable(l:stpl)
+    return {}
+  endif
+  let s:postfix_cache[a:filetype] = {}
+  let l:k = ''
+  let l:v = []
+  for l:line in add(readfile(l:stpl), '__END__')
+    if l:line ==# ''
+      continue
+    elseif l:line !~# '^\t'
+      if l:k !=# ''
+        let s:postfix_cache[a:filetype][l:k] = l:v
+      endif
+      let l:k = l:line
+      let l:v = []
+    else
+      call add(l:v, l:line[1:])
+    endif
+  endfor
+  return s:postfix_cache[a:filetype]
+endfun
+
+fun! s:exists_postfix_entry(expr, filetype) abort
+  let l:p = s:get_postfix(a:filetype)
+  if l:p == {}
+    return 0
+  endif
+  let l:c = keys(l:p)
+        \ ->map({_,v -> matchstr(a:expr, v)})
+        \ ->filter({_,v -> v != ''})
+        \ ->len()
+  return l:c ># 0
+endfun
+
+fun! s:handle_imap_tab()
+  if vsnip#jumpable(1)
+    return "\<Plug>(vsnip-jump-next)"
+  endif
+  let l:compArg = getline('.')[:col('.')]
+  if s:exists_postfix_entry(l:compArg, &filetype)
+    return "\<plug>(sonictemplate-postfix)"
+  endif
+  return "\<Tab>"
+endfun
+
+imap <expr> <Tab> <SID>handle_imap_tab()
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
@@ -197,3 +255,12 @@ function! PrintSyntaxGroup()
   echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfunction
 
+command! -nargs=? PostfixOpenVsplit call s:open_postfix('vsplit', <q-args>)
+fun! s:open_command(cmd, args)
+  execute printf('%s %s', a:cmd, a:args)
+endfun
+fun! s:open_postfix(cmd, arg)
+  call s:open_command(a:cmd, a:arg != ''
+        \ ? s:get_postfix_pattern_path(a:arg)
+        \ : s:get_postfix_pattern_path(&filetype))
+endfun
