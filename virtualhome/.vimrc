@@ -12,7 +12,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'guns/xterm-color-table.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'hrsh7th/vim-vsnip'
@@ -144,7 +143,7 @@ endfun
 autocmd! FileType go call s:on_go_loaded()
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
-  function! s:on_lsp_buffer_enabled() abort
+  fun! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     nmap <buffer> <F2> <plug>(lsp-rename)
@@ -161,7 +160,14 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
     autocmd! BufWritePre <buffer>
           \ call execute('LspCodeActionSync source.organizeImports') |
           \ LspDocumentFormatSync
-  endfunction
+  endfun
+  if executable('gopls')
+    au User lsp_setup call lsp#register_server({
+          \ 'name': 'gopls',
+          \ 'cmd': {server_info->['gopls']},
+          \ 'allowlist': ['go'],
+          \ })
+  endif
   augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
