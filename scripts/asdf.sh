@@ -8,3 +8,4 @@ function add(){
 
 add erlang \
     elixir \
+    golang

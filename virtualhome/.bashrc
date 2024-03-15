@@ -46,7 +46,6 @@ export KERL_BUILD_DOCS=yes
 
 export WINHOME="$(wslpath $(wslvar USERPROFILE))"
 export PATH="$PATH:$WINHOME/AppData/Local/Programs/Microsoft VS Code/bin"
-export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/opt/maven/3.9.4/bin"
 export PATH="$PATH:$HOME/.jenv/bin"
 export PATH="$PATH:$HOME/.local/bin"
