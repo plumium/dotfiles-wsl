@@ -42,7 +42,6 @@ set wildmode=longest,list,full
 set expandtab
 set tabstop=2
 set shiftwidth=0
-set termwinsize=20x0
 
 " Set the default listing style to tree.
 let g:netrw_liststyle = 3
@@ -177,6 +176,7 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
         \ let lsp_log_file = expand('~/lsp.log')
   let g:lsp_diagnostics_enabled = 1
   let g:lsp_diagnostics_echo_cursor = 1
+  let g:lsp_diagnostics_float_cursor = 1
 endif
 
 nnoremap <silent> <F5> :w<CR>:source $MYVIMRC<CR>:e %<CR>:let @/ = ''<CR>
