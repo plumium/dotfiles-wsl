@@ -1,0 +1,29 @@
+[alias]
+    bra = branch -avv
+    cm = commit
+    co = checkout
+    cp = cherry-pick
+    log5 = log -n 5 --oneline
+    sh = stash
+    ss = status -s
+    st = status
+    tree = log --graph --oneline --decorate=full -20 --date=short --format=\"%C(yellow)%h%C(reset) %C(magenta)[%ad]%C(reset)%C(auto)%d%C(reset) %s %C(cyan)@%an%C(reset)\"
+
+[core]
+    autocrlf = input
+	editor = /usr/bin/vim
+
+[init]
+    defaultBranch = main
+
+[credential]
+    helper = /mnt/c/Program\\ Files/Git/mingw64/libexec/git-core/git-credential-wincred.exe
+
+[user]
+	name = plumium
+	email = plumium@outlook.com
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
