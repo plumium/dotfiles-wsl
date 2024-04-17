@@ -9,18 +9,21 @@ sudo apt update &&
         automake \
         autoconf \
         libssl-dev \
+        libffi-dev \
         libncurses5-dev \
         libedit-dev \
         unzip \
         cloc \
         vfox \
-        jq
+        jq \
+        tmux
 
 vfox add python
 vfox add golang
 vfox install python@3.12.0
 vfox install golang@1.22.2
 
+vfox use -g python@3.12.0
 pip install pgcli
 pip install "python-lsp-server[autopep8]"
 

@@ -163,4 +163,7 @@ fi
 complete -C ~/go/bin/gocomplete go
 eval "$(vfox activate bash)"
 
+[ -f ~/.asdf/asdf.sh ] && source ~/.asdf/asdf.sh
+[ -f ~/.asdf/completions/asdf.bash ] && source ~/.asdf/completions/asdf.bash
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
