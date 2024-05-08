@@ -11,6 +11,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'guns/xterm-color-table.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'

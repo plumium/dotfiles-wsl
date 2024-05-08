@@ -1,7 +1,7 @@
 {
 	".source.go": {
-		"single import": {
-			"prefix": "im",
+    "single import": {
+      "prefix": "im",
 			"body": "import \"${1:package}\"",
 			"description": "Snippet for import statement"
 		},
@@ -79,6 +79,11 @@
 			"prefix": "forr",
 			"body": "for ${1:_, }${2:v} := range ${3:v} {\n\t$0\n}",
 			"description": "Snippet for a for range loop"
+    },
+    "for infinite statement": {
+      "prefix": "fori",
+			"body": "for {\n\t$0\n}",
+			"description": "Snippet for a for infinite loop"
 		},
 		"channel declaration": {
 			"prefix": "ch",
