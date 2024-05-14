@@ -45,6 +45,16 @@
 			"body": "func $1($2) $3 {\n\t$0\n}",
 			"description": "Snippet for function declaration"
 		},
+		"test function declaration": {
+			"prefix": "funct",
+			"body": "func Test$1(t *testing.T) {\n\t$0\n}",
+			"description": "Snippet for test function declaration"
+		},
+		"benchmark function declaration": {
+			"prefix": "funcb",
+			"body": "func Benchmark$1(b *testing.B) {\n\t$0\n}",
+			"description": "Snippet for benchmark function declaration"
+		},
 		"single variable": {
 			"prefix": "var",
 			"body": "var ${1:name} ${2:type}",
