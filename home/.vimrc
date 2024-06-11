@@ -21,6 +21,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'mattn/vim-sonictemplate'
 Plug 'sebdah/vim-delve'
+Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 let &t_SI = "\e[3 q"
@@ -128,7 +129,6 @@ set background=dark
 hi! link SpecialKey Special
 
 autocmd! BufReadPre *.go
-      \ let g:vsnip_snippet_dir = '$HOME/.vim/snippets' |
       \ let g:go_highlight_functions = 1 |
       \ let g:go_highlight_function_calls = 1 |
       \ let g:go_highlight_types = 1 |
@@ -147,6 +147,7 @@ autocmd! FileType go call s:on_go_loaded()
 
 if !empty(globpath(&rtp, 'autoload/lsp.vim'))
   fun! s:on_lsp_buffer_enabled() abort
+    let g:vsnip_snippet_dir = '$HOME/.vim/snippets'
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
@@ -186,13 +187,14 @@ if !empty(globpath(&rtp, 'autoload/lsp.vim'))
           \ 'config': {'pylsp': {'plugins': {'autopep8': {'enabled': v:false}}}},
           \ })
   endif  
-  if executable('sqls')
+  if executable('elixir-ls')
     au User lsp_setup call lsp#register_server({
-          \   'name': 'sqls',
-          \   'cmd': {server_info->['sqls']},
-          \   'allowlist': ['sql'],
+          \ 'name': 'elixir-ls',
+          \ 'cmd': {server_info->['elixir-ls']},
+          \ 'allowlist': ['elixir'],
+          \ 'semantic_highlight': v:true,
           \ })
-  endif
+  endif  
   augroup lsp_install
     au!
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
@@ -212,7 +214,7 @@ nnoremap <silent> <C-[><C-[> :noh<CR>
 nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:set hlsearch<CR>
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
-nnoremap <silent> <F3> :20Lexplore<CR>
+nnoremap <silent> <F3> :FZF<CR>
 
 inoremap ( ()<Left>
 inoremap [ []<Left>
