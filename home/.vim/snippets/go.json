@@ -45,15 +45,20 @@
 			"body": "func $1($2) $3 {\n\t$0\n}",
 			"description": "Snippet for function declaration"
 		},
-		"test function declaration": {
-			"prefix": "funct",
-			"body": "func Test$1(t *testing.T) {\n\t$0\n}",
-			"description": "Snippet for test function declaration"
-		},
 		"benchmark function declaration": {
 			"prefix": "funcb",
 			"body": "func Benchmark$1(b *testing.B) {\n\t$0\n}",
 			"description": "Snippet for benchmark function declaration"
+		},
+		"struct function declaration": {
+			"prefix": "funcs",
+			"body": "func ($1) $2($3) $4 {\n\t$0\n}",
+			"description": "Snippet for struct function declaration"
+		},
+		"test function declaration": {
+			"prefix": "funct",
+			"body": "func Test$1(t *testing.T) {\n\t$0\n}",
+			"description": "Snippet for test function declaration"
 		},
 		"single variable": {
 			"prefix": "var",
@@ -85,16 +90,21 @@
 			"body": "for ${1:i} := ${2:0}; $1 < ${3:count}; $1${4:++} {\n\t$0\n}",
 			"description": "Snippet for a for loop"
 		},
-		"for range statement": {
-			"prefix": "forr",
-			"body": "for ${1:_, }${2:v} := range ${3:v} {\n\t$0\n}",
-			"description": "Snippet for a for range loop"
-    },
+    "for channel range statement": {
+      "prefix": "forc",
+			"body": "for ${1:v} := range ${2:v} {\n\t$0\n}",
+			"description": "Snippet for a for range channel loop"
+		},
     "for infinite statement": {
       "prefix": "fori",
 			"body": "for {\n\t$0\n}",
 			"description": "Snippet for a for infinite loop"
 		},
+		"for range statement": {
+			"prefix": "forr",
+			"body": "for ${1:_, }${2:v} := range ${3:v} {\n\t$0\n}",
+			"description": "Snippet for a for range loop"
+    },
 		"channel declaration": {
 			"prefix": "ch",
 			"body": "chan ${1:type}",
