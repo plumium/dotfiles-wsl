@@ -215,6 +215,12 @@ nnoremap <silent> <Space><Space> :let @/ = '\<' . expand('<cword>') . '\>'<CR>:s
 nmap <Space>h <Space><Space>:%s/<C-r>///g<Left><Left>
 cnoremap <C-a> <C-b>
 nnoremap <silent> <F3> :FZF<CR>
+nnoremap <silent> gl :ls<CR>
+nnoremap <silent> gb :bn<CR>
+nnoremap <silent> gB :bp<CR>
+nnoremap <silent> g= :set lazyredraw<CR>gg=G`'zz:set nolazyredraw<CR>
+nnoremap <silent> gyy "*yy
+vnoremap <silent> gy "*y
 
 inoremap ( ()<Left>
 inoremap [ []<Left>
